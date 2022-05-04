@@ -1,6 +1,7 @@
 package com.vailamot.foregroundservice;
 
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -39,10 +40,15 @@ public class MyService extends Service {
 
     // Gửi thông báo
     private void sendNotification() {
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent =
+                PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"123");
         builder.setContentTitle("Song A");
         builder.setContentText("Mr.A");
         builder.setSmallIcon(R.drawable.ic_baseline_volume_up_24);
+        builder.setContentIntent(pendingIntent);
         Notification notification = builder.build();
 
         startMusic();
